@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: mediamtx
+    restart: unless-stopped
+    ports:
+      - "1935:1935"   # RTMP — receber vídeo do drone (Pilot 2) e do cuas-capture
+      - "8888:8888"   # HLS — o que a app consome
+      - "8889:8889"   # WebRTC (fase 2, opcional)
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml
+
+  cuas-capture:
+    build: ./cuas-capture
+    container_name: cuas-capture
+    restart: unless-stopped
+    depends_on:
+      - mediamtx
+    environment:
+      # Ajusta ao IP/porta reais do teu sistema C-UAS
+      CUAS_URL: "http://192.168.1.10:7001"
+      MEDIAMTX_RTMP_URL: "rtmp://mediamtx:1935/cuas1"
+      SCREEN_WIDTH: "1280"
+      SCREEN_HEIGHT: "720"

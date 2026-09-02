@@ -1,0 +1,37 @@
+# mediamtx.yml
+#
+# Configuração do MediaMTX para os dois feeds de vídeo:
+#   - drone1 : recebido via RTMP, enviado pelo DJI Pilot 2 (Live Streaming
+#               custom RTMP, nas definições de transmissão em direto)
+#   - cuas1  : recebido via RTMP, enviado pelo serviço "cuas-capture"
+#               (que abre a página do sistema C-UAS num browser sem ecrã
+#               e captura essa imagem)
+#
+# Documentação completa: https://github.com/bluenviron/mediamtx
+
+# --- Autenticação ---
+# Todos os pedidos (publicar OU ver) passam primeiro por este endpoint.
+# Substitui pelo URL real da tua Edge Function depois do deploy.
+authMethod: http
+authHTTPAddress: https://O_TEU_PROJETO.supabase.co/functions/v1/verify-stream-auth
+
+# --- Ingest RTMP (recebe o vídeo) ---
+rtmp: yes
+rtmpAddress: :1935
+
+# --- Saída HLS (o que a app consome no <video>) ---
+hls: yes
+hlsAddress: :8888
+hlsAllowOrigin: '*'
+hlsVariant: lowLatency
+
+# --- Saída WebRTC (opcional, latência ainda mais baixa — fase 2) ---
+webrtc: yes
+webrtcAddress: :8889
+
+paths:
+  drone1:
+    source: publisher
+
+  cuas1:
+    source: publisher
