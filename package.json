@@ -1,5 +1,6 @@
 {
   "name": "drone-manager",
+  "type": "module",
   "engines": {
     "node": "24.x"
   },

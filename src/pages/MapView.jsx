@@ -184,10 +184,10 @@ export default function MapView() {
         <div className="rounded-xl overflow-hidden border border-border" style={{ height: '65vh' }}>
           <MapContainer center={DEFAULT_CENTER} zoom={DEFAULT_ZOOM} style={{ height: '100%', width: '100%', background: '#0D0F14' }}>
             <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            />
-
+               url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  className="map-dark-tiles"
+  />
             {showMissions && filteredMissions.map((m) => (
               <CircleMarker
                 key={`m-${m.id}`}
